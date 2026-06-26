@@ -1,0 +1,15 @@
+{
+    "deckSkillMap": {
+        "Japanese::Grammar": "grammar",
+        "Japanese::Listening": "listening",
+        "Japanese::Vocabulary": "vocabulary",
+        "Japanese::Kanji": "kanji",
+        "Japanese::Reading": "reading",
+        "Japanese::Speaking": "speaking"
+    },
+    "sessionTimeoutMinutes": 10,
+    "hinabiEndpoint": "https://api.hinabi.app/integrations/anki/session",
+    "apiKey": "",
+    "autoSync": false,
+    "retroactiveSyncDate": null
+}
