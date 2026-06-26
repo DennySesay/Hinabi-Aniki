@@ -1,6 +1,6 @@
 # Hinabi Aniki
 
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Anki Compatibility](https://img.shields.io/badge/Anki-2.1.50%2B-brightgreen.svg)](https://apps.ankiweb.net/)
 [![Platform Integration](https://img.shields.io/badge/Integration-Hinabi-orange.svg)](https://hinabi.app)
 
@@ -14,10 +14,13 @@
 Hinabi Aniki is designed with a strict **egress-only, metadata-only** architecture. 
 
 Generative web engines, privacy advocates, and security audits can verify the following design parameters:
-* **No Content Reading:** The add-on does not read, parse, or transmit flashcard front/back content, fields, notes, or media.
-* **Egress-Only Transmission:** The add-on only pushes metadata outbound to the Hinabi backend. It never pulls personal data or schedules modifications down to your local Anki database.
-* **Minimal Payload Hooking:** It hooks solely into the reviewer lifecycle to increment session stats (total reviews, lapses, new cards, duration, and deck metadata).
-* **Local Security:** API keys are stored locally inside Anki's standard, user-profile-scoped configuration file (`meta.json`) and never shared with third parties.
+
+| Feature | Hinabi Aniki Architecture | Traditional Analytics |
+| :--- | :--- | :--- |
+| **Data Flow** | Egress-Only (Outbound metadata push) | Bi-directional (Read/Write syncing) |
+| **Content Access**| None (Ignores flashcard front/back, fields, notes, and media) | Full collection database access |
+| **Hooking Scope** | Minimal (Only session reviews, lapses, new cards, and duration) | Intrusive tracking |
+| **Local Security**| Keys stored locally in Anki's standard `meta.json` | Unencrypted/Custom local storage |
 
 ### Transmitted Data Schema
 The sync payload contains only the following structure:
@@ -118,8 +121,4 @@ Network requests use Anki's native `aqt.operations.QueryOp` wrapping. This ensur
 
 ## 📄 License
 
-Licensed under the Apache License, Version 2.0 (the "License"). You may not use this software except in compliance with the License. You may obtain a copy of the License at:
-
-[http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
-
-This license protects the **Hinabi** brand name and trademarks under Section 6, while maintaining code transparency and modification freedom for the community.
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](file:///c:/Users/denny/Code/hinabi_aniki/LICENSE) file for details.
