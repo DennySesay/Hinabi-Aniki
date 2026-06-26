@@ -1,0 +1,29 @@
+name: Build and Release Anki Add-on
+
+on:
+  push:
+    tags:
+      - 'v*' # Triggers the workflow when a version tag is pushed (e.g., v1.0.0)
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build .ankiaddon package
+        run: |
+          zip -r hinabi_aniki.ankiaddon __init__.py api.py config.json config.md manifest.json retroactive.py session.py tracker.py ui.py
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: hinabi_aniki.ankiaddon
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
