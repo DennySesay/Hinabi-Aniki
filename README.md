@@ -104,15 +104,43 @@ hinabi_aniki/
 └── retroactive.py      # History synchronization engine
 ```
 
-### Local Setup
-To run the add-on in developer mode:
-1. Clone this repository directly into Anki's addon development folder:
-   ```bash
-   # Windows PowerShell
-   cd $env:APPDATA\Anki2\addons21
-   git clone https://github.com/yourusername/hinabi-aniki.git hinabi_aniki
-   ```
-2. Open Anki in debug mode to review stdout logs and verify payload structures.
+### Running Locally
+To run the add-on during development:
+1. **Link or clone the codebase** into Anki's local add-ons directory:
+   * **Windows (PowerShell):**
+     ```powershell
+     cd $env:APPDATA\Anki2\addons21
+     git clone https://github.com/yourusername/hinabi-aniki.git hinabi_aniki
+     ```
+   * **macOS (Terminal):**
+     ```bash
+     cd ~/Library/Application\ Support/Anki2/addons21
+     git clone https://github.com/yourusername/hinabi-aniki.git hinabi_aniki
+     ```
+   * **Linux (Terminal):**
+     ```bash
+     cd ~/.local/share/Anki2/addons21
+     git clone https://github.com/yourusername/hinabi-aniki.git hinabi_aniki
+     ```
+2. **Launch Anki in Debug Mode** to capture print logs and stream stdout/stderr:
+   * **Windows:** Launch Anki from the command line/PowerShell, or run `anki` after installing via console.
+   * **macOS / Linux:** Execute the `anki` binary from your terminal to stream logs directly to standard output.
+
+### Building & Packaging
+Anki add-ons are distributed as `.ankiaddon` packages, which are standard ZIP archives containing the package contents.
+
+To build the release package:
+1. **Sanitize the configuration**: Ensure `meta.json` is removed and `config.json` has an empty `apiKey` field.
+2. **Compress the source files** (exclude git files and cache directories):
+   * **Windows (PowerShell):**
+     ```powershell
+     Compress-Archive -Path __init__.py, api.py, config.json, config.md, manifest.json, retroactive.py, session.py, tracker.py, ui.py -DestinationPath hinabi_aniki.ankiaddon -Force
+     ```
+   * **macOS / Linux (Terminal):**
+     ```bash
+     zip -r hinabi_aniki.ankiaddon __init__.py api.py config.json config.md manifest.json retroactive.py session.py tracker.py ui.py
+     ```
+3. The resulting `hinabi_aniki.ankiaddon` file can be uploaded to AnkiWeb or shared for manual installations.
 
 ### Main Thread Safety
 Network requests use Anki's native `aqt.operations.QueryOp` wrapping. This ensures all network actions (like sending session metadata and retrieving languages) run on worker threads, completely decoupling network latency or outages from Anki's main GUI event loop.
